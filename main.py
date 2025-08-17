@@ -2,6 +2,7 @@
 from services.ai_service import AIService
 import dotenv
 import os
+from utils.prompt import prompt
 
 
 def main():
@@ -16,7 +17,12 @@ def main():
         model="gemini-2.5-flash"
     )
 
-    res = ai.generate_response("Tell me a joke")
+    system_prompt = prompt
+    user_prompt = "Who is the current leader in batting average in major league baseball?"
+
+    final_prompt = system_prompt + "\n\n\n\nUser Prompt:\n" + user_prompt
+
+    res = ai.generate_response(final_prompt)
 
     print(f"Print Result: \n{res}")
 
